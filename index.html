@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Education Within Reach</title>
+<meta name="description" content="Student project for SDG 4: improving the quality of education with affordable technology.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<!--
+  HOW TO CUSTOMISE
+  1. COLOURS: change the variables in :root below.
+  2. TEXT: edit the text between the HTML tags.
+  3. IMAGES: put your files in an "assets" folder next to this file, using these names
+     (or change the src in the HTML): hero.png, Luka.png, Matic.png, Zan.png, Nejc.png, Tilen.png,
+     company.png, before.png, process.png, after.png, gallery1.png ... gallery4.png
+     Until a file exists, a labelled placeholder is shown instead.
+  4. VIDEO: paste your YouTube video ID into data-video-id (the part after v= in the link).
+-->
+<style>
+:root{
+  --sky:#8ed2f3; --sky-deep:#4aa8dc; --sky-soft:#e4f5fd;
+  --honey:#f5a623; --honey-deep:#b8700a; --honey-soft:#ffe3ad;
+  --beige:#f7efe0; --beige-2:#efe3cc; --line:#e2d3b5;
+  --ink:#12364d; --ink-soft:#4b6b7f; --white:#fffdf8;
+  --head:'Bricolage Grotesque',system-ui,sans-serif; --body:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--body);color:var(--ink);background:var(--beige);line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--honey);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,92%);margin-inline:auto}
+h1,h2,h3{font-family:var(--head);line-height:1.08;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:14px}
+h3{font-size:1.2rem;font-weight:700}
+
+/* progress + nav */
+#bar{position:fixed;top:0;left:0;height:4px;width:0;background:var(--honey);z-index:60}
+nav{position:sticky;top:0;z-index:50;background:rgba(142,210,243,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(18,54,77,.12)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 0}
+.logo{font:800 1rem var(--head);text-decoration:none;white-space:nowrap}
+.logo i{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--honey);margin-right:8px;box-shadow:0 0 0 3px var(--white)}
+nav ul{display:flex;gap:6px;list-style:none;padding:0;overflow-x:auto;scrollbar-width:none}
+nav ul a{display:block;padding:6px 13px;border-radius:99px;font-size:.88rem;font-weight:500;text-decoration:none;white-space:nowrap;transition:background .25s}
+nav ul a:hover{background:var(--white)}
+
+/* hero */
+.hero{background:linear-gradient(165deg,var(--sky) 0%,#b9e5f8 100%);position:relative;overflow:hidden;padding:84px 0 96px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative;z-index:2}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--white);padding:6px 14px;border-radius:99px;margin-bottom:22px}
+.hero h1{font-size:clamp(2.8rem,7vw,5.4rem);font-weight:800}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}
+.hero h1 .ln span{display:inline-block;transform:translateY(110%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 .ln:nth-child(2) span{animation-delay:.12s}.hero h1 .ln:nth-child(3) span{animation-delay:.24s}
+.hl{position:relative;display:inline-block;color:var(--ink);z-index:1}
+.hl::before{content:"";position:absolute;inset:.18em -.12em .02em;background:var(--honey);border-radius:.2em;z-index:-1;transform:rotate(-2deg) scaleX(0);transform-origin:left;animation:swipe .7s .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero p.lead{font-size:1.15rem;max-width:30em;margin:24px 0 30px;opacity:0;animation:fade .8s .7s forwards}
+.btn{display:inline-block;background:var(--ink);color:var(--white);padding:14px 26px;border-radius:99px;font-weight:700;text-decoration:none;transition:transform .25s,background .25s;opacity:0;animation:fade .8s 1s forwards}
+.btn:hover{background:var(--honey);color:var(--ink);transform:translateY(-3px) rotate(-1deg)}
+.stage{position:relative;opacity:0;animation:fade 1s .4s forwards}
+.sun{position:absolute;width:78%;aspect-ratio:1;border-radius:50%;background:var(--honey);right:-10%;top:-12%;animation:bob 7s ease-in-out infinite}
+.stage .ph{aspect-ratio:4/3;border-radius:22px;border:6px solid var(--white);box-shadow:14px 14px 0 var(--honey-deep);transform:rotate(2.5deg);position:relative;z-index:2;transition:transform .5s}
+.stage:hover .ph{transform:rotate(0)}
+.badge{position:absolute;z-index:3;left:-34px;bottom:-34px;width:112px;height:112px;border-radius:50%;background:var(--white);display:grid;place-items:center;box-shadow:0 8px 24px rgba(18,54,77,.2)}
+.badge svg{position:absolute;inset:0;animation:spin 18s linear infinite}
+.badge text{font:700 9px var(--body);fill:var(--ink)}
+.badge b{font:800 2.2rem var(--head);color:var(--honey-deep)}
+.dot{position:absolute;border-radius:50%;opacity:.7;animation:bob 6s ease-in-out infinite}
+.d1{width:26px;height:26px;background:var(--white);left:6%;top:14%}.d2{width:14px;height:14px;background:var(--honey);left:46%;top:8%;animation-delay:-2s}.d3{width:40px;height:40px;border:5px solid var(--white);left:3%;bottom:12%;animation-delay:-4s}
+
+/* ticker */
+.ticker{background:var(--ink);color:var(--beige);overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1deg);margin:-26px -2% 0;position:relative;z-index:5}
+.ticker div{display:inline-block;animation:slide 28s linear infinite;font:700 1.05rem var(--head)}
+.ticker span{margin:0 22px}.ticker span:nth-child(even){color:var(--honey)}
+
+/* sections */
+section{padding:96px 0}
+section:nth-of-type(odd){background:var(--beige-2)}
+.label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--honey-deep);margin-bottom:12px}
+.sub{color:var(--ink-soft);max-width:38em;margin-bottom:38px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 2px 0 var(--line);transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 0 var(--sky)}
+.ph{position:relative;overflow:hidden;background:repeating-linear-gradient(45deg,var(--sky-soft) 0 14px,var(--honey-soft) 14px 28px);display:grid;place-items:center;border-radius:12px}
+.ph::after{content:attr(data-ph);font:700 .75rem var(--body);background:var(--white);padding:4px 10px;border-radius:99px;color:var(--ink-soft);text-align:center;margin:8px}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+
+.team{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.team .card{padding:12px}
+.team .ph{aspect-ratio:1;margin-bottom:12px}
+.team h3{font-size:1.05rem}.team em{display:block;font-style:normal;font-weight:700;font-size:.8rem;color:var(--honey-deep);margin:2px 0 6px}
+.team p{font-size:.82rem;color:var(--ink-soft);line-height:1.45}
+.team .card:nth-child(even){margin-top:22px}
+
+.q{font:700 1.35rem var(--head);line-height:1.25}
+.q small{display:block;font:700 .72rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--honey-deep);margin:14px 0 4px}
+.q small:first-child{margin-top:0}
+.q span{font:400 .95rem var(--body);color:var(--ink-soft)}
+.visit .ph{aspect-ratio:4/3;border-radius:18px}
+.visit ul,.vid ol{margin:14px 0 0 1.1em;color:var(--ink-soft)}
+.visit li,.vid li{margin-bottom:6px}.visit li::marker,.vid li::marker{color:var(--honey)}
+.visit h3{font-size:1.5rem;margin-bottom:10px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+.steps .card{padding:0;overflow:hidden}
+.steps .ph{aspect-ratio:4/3;border-radius:0}
+.steps .body{padding:20px 22px 24px}
+.steps .label{counter-increment:s}.steps .label::before{content:"Step " counter(s) " · "}
+.steps h3{margin-bottom:6px}.steps p{color:var(--ink-soft);font-size:.92rem}
+
+.gal{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:230px 230px;gap:14px}
+.gal button{all:unset;cursor:zoom-in;display:block;border-radius:14px;overflow:hidden;transition:transform .35s,border-radius .35s}
+.gal button:nth-child(1){grid-row:span 2}
+.gal button:hover{transform:scale(1.025) rotate(-.6deg);border-radius:26px}
+.gal .ph{height:100%;border-radius:0}
+
+.vid .ph{aspect-ratio:16/9;border-radius:16px;border:5px solid var(--white);box-shadow:10px 10px 0 var(--sky-deep);cursor:pointer}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
+.play{position:absolute;z-index:2;width:74px;height:74px;border-radius:50%;background:var(--honey);display:grid;place-items:center;font-size:1.6rem;color:var(--ink);transition:transform .3s;animation:pulse 2s infinite}
+.vid .ph:hover .play{transform:scale(1.15)}
+
+.impact{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.impact .card{background:var(--sky-soft);border-color:var(--sky)}
+.impact .card:hover{box-shadow:0 14px 0 var(--honey)}
+.impact h3{font-size:1.5rem;color:var(--ink);margin-bottom:6px}.impact p{font-size:.92rem;color:var(--ink-soft)}
+.impact .card::before{content:"";display:block;width:34px;height:34px;border-radius:50%;background:var(--honey);margin-bottom:16px}
+.impact .card:nth-child(2)::before{border-radius:10px;background:var(--sky-deep)}
+.impact .card:nth-child(3)::before{border-radius:50% 50% 50% 0}
+.impact .card:nth-child(4)::before{border-radius:4px;transform:rotate(45deg);background:var(--ink)}
+
+.concl{background:var(--sky)!important;text-align:center}
+blockquote{font:800 clamp(1.6rem,3.6vw,2.7rem) var(--head);line-height:1.15;max-width:22em;margin:10px auto 24px;letter-spacing:-.02em}
+.concl p{max-width:38em;margin:auto;color:var(--ink)}
+.concl .label{color:var(--ink)}
+
+footer{background:var(--ink);color:var(--beige);padding:56px 0 40px}
+footer h2{font-size:1.8rem;color:var(--white)}footer p{max-width:44em;opacity:.8;font-size:.95rem}
+footer .end{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.18);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+footer b{color:var(--honey)}
+
+#lb{position:fixed;inset:0;background:rgba(18,54,77,.92);display:none;place-items:center;z-index:100;padding:24px;cursor:zoom-out}
+#lb.on{display:grid;animation:fade .3s}
+#lb img{max-height:88vh;border-radius:14px;border:6px solid var(--white)}
+#lb b{position:absolute;top:18px;right:26px;font:400 2.6rem var(--head);color:var(--white)}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+.sq{display:block;width:150px;height:14px;margin:-4px 0 18px}
+.sq path{stroke-dasharray:240;stroke-dashoffset:240;transition:stroke-dashoffset 1.2s .3s}
+.in .sq path,.sq.in path{stroke-dashoffset:0}
+
+@keyframes up{to{transform:none}}
+@keyframes fade{to{opacity:1}}
+@keyframes swipe{to{transform:rotate(-2deg) scaleX(1)}}
+@keyframes bob{50%{transform:translateY(-16px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes slide{to{transform:translateX(-50%)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,166,35,.6)}100%{box-shadow:0 0 0 22px rgba(245,166,35,0)}}
+
+@media(max-width:900px){
+  .hero .wrap,.two{grid-template-columns:1fr}.hero{padding:56px 0 80px}
+  .team{grid-template-columns:repeat(2,1fr)}.team .card:nth-child(even){margin-top:0}
+  .steps,.impact{grid-template-columns:1fr}
+  .gal{grid-template-columns:1fr 1fr;grid-template-rows:auto}.gal button:nth-child(1){grid-row:auto}.gal button{height:200px}
+  nav .wrap{flex-direction:column;gap:6px}.badge{left:-6px;bottom:-26px;width:92px;height:92px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,::before,::after{animation:none!important;transition:none!important}
+  .hero h1 .ln span,.hero p.lead,.btn,.stage{opacity:1;transform:none}.hl::before{transform:rotate(-2deg)}
+  .rv{opacity:1;transform:none}.sq path{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav><div class="wrap">
+  <a class="logo" href="#top"><i></i>Education Within Reach</a>
+  <ul>
+    <li><a href="#team">Team</a></li><li><a href="#research">Research</a></li><li><a href="#visit">School Visit</a></li>
+    <li><a href="#work">Practical Work</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#video">Video</a></li>
+  </ul>
+</div></nav>
+
+<header class="hero" id="top">
+  <i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i>
+  <div class="wrap">
+    <div>
+      <span class="tag">Student project · SDG 4 · Quality education</span>
+      <h1><span class="ln"><span>Education</span></span><span class="ln"><span>Within</span></span><span class="ln"><span class="hl">Reach.</span></span></h1>
+      <p class="lead">How can affordable technology improve the quality of education for every student, in every classroom?</p>
+      <a class="btn" href="#team">Explore the project</a>
+    </div>
+    <div class="stage">
+      <div class="sun"></div>
+      <div class="ph" data-ph="assets/hero.png"><img src="assets/hero.png" alt="Students learning with a low-cost computer" onerror="this.remove()"></div>
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><defs><path id="c" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#c" textLength="285" lengthAdjust="spacing">QUALITY EDUCATION • SDG 4 • FOR EVERYONE • </textPath></text></svg>
+        <b>4</b>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><div>
+  <span>Open textbooks</span><span>Low-cost tablets</span><span>Offline learning</span><span>Reused laptops</span><span>Free software</span><span>Solar chargers</span><span>Open textbooks</span><span>Low-cost tablets</span><span>Offline learning</span><span>Reused laptops</span><span>Free software</span><span>Solar chargers</span>
+</div></div>
+
+<section id="team">
+  <div class="wrap">
+    <span class="label">01 · Meet the team</span>
+    <h2 class="rv">Five students. One shared project.</h2>
+    <p class="sub">Each student has a primary responsibility, but all members take part in the research, the school visit, the practical work and the final presentation.</p>
+    <div class="team">
+      <div class="card rv"><div class="ph" data-ph="assets/Luka.png"><img src="assets/Luka.png" alt="Luka" onerror="this.remove()"></div><h3>Luka</h3><em>Research Lead</em><p>Researches SDG 4, learning gaps and low-cost education technology.</p></div>
+      <div class="card rv"><div class="ph" data-ph="assets/Matic.png"><img src="assets/Matic.png" alt="Matic" onerror="this.remove()"></div><h3>Matic</h3><em>School Visit</em><p>Prepares the visit, interview questions and field notes.</p></div>
+      <div class="card rv"><div class="ph" data-ph="assets/Zan.png"><img src="assets/Zan.png" alt="Žan" onerror="this.remove()"></div><h3>Žan</h3><em>Tech &amp; Setup</em><p>Tests devices, software and classroom setups on a small budget.</p></div>
+      <div class="card rv"><div class="ph" data-ph="assets/Nejc.png"><img src="assets/Nejc.png" alt="Nejc" onerror="this.remove()"></div><h3>Nejc</h3><em>Photography &amp; Web</em><p>Documents the project visually and builds the website.</p></div>
+      <div class="card rv"><div class="ph" data-ph="assets/Tilen.png"><img src="assets/Tilen.png" alt="Tilen" onerror="this.remove()"></div><h3>Tilen</h3><em>Video Production</em><p>Records and edits the final video demonstration.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap two">
+    <div class="rv">
+      <span class="label">02 · The problem &amp; research</span>
+      <h2>Why does this matter?</h2>
+      <svg class="sq" viewBox="0 0 150 14"><path d="M2 8 Q14 0 26 8 T50 8 T74 8 T98 8 T122 8 T148 8" fill="none" stroke="#f5a623" stroke-width="4" stroke-linecap="round"/></svg>
+      <p class="sub" style="margin:0">Many schools cannot afford new devices or paid software. The team investigates how low-cost tools, open resources and reused hardware can make lessons clearer, more engaging and more inclusive.</p>
+    </div>
+    <div class="card q rv">
+      <small>Research question</small>
+      What can affordable technology change about how students learn?
+      <small>Expected evidence</small>
+      <span>Reliable sources · short synthesis · source references</span>
+    </div>
+  </div>
+</section>
+
+<section id="visit" class="visit">
+  <div class="wrap two">
+    <div class="ph rv" data-ph="assets/company.png"><img src="assets/company.png" alt="The team visiting a school" onerror="this.remove()"></div>
+    <div class="card rv">
+      <span class="label">03 · School visit</span>
+      <h3>Example School or Organisation</h3>
+      <p class="sub" style="margin:8px 0 0">Students visit at least one school, library or education organisation, photograph the visit and explain how it uses technology today.</p>
+      <ul>
+        <li>Which tools do teachers use right now?</li>
+        <li>What would they change if the budget allowed?</li>
+        <li>What does it cost, and who pays?</li>
+        <li>What happens when a device breaks?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <span class="label">04 · Practical work</span>
+    <h2 class="rv">Put an idea into a classroom.</h2>
+    <p class="sub">A simple three-step process: find the gap, build an affordable fix and test it with real learners.</p>
+    <div class="steps">
+      <div class="card rv"><div class="ph" data-ph="assets/before.png"><img src="assets/before.png" alt="Before" onerror="this.remove()"></div><div class="body"><span class="label">Before</span><h3>Find the gap</h3><p>Record the current situation: available devices, lesson problems and what students struggle with.</p></div></div>
+      <div class="card rv"><div class="ph" data-ph="assets/process.png"><img src="assets/process.png" alt="Process" onerror="this.remove()"></div><div class="body"><span class="label">Process</span><h3>Build the solution</h3><p>Set up low-cost hardware, free software or open materials and prepare a short lesson.</p></div></div>
+      <div class="card rv"><div class="ph" data-ph="assets/after.png"><img src="assets/after.png" alt="After" onerror="this.remove()"></div><div class="body"><span class="label">After</span><h3>Test with learners</h3><p>Try it in class, gather feedback and compare results before and after.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <span class="label">05 · Photo gallery</span>
+    <h2 class="rv">Show real evidence.</h2>
+    <p class="sub">Replace these placeholders with photographs taken by the students. Click an image to open it larger.</p>
+    <div class="gal">
+      <button aria-label="Open photo 1"><div class="ph" data-ph="assets/gallery1.png"><img src="assets/gallery1.png" alt="Project photo 1" onerror="this.remove()"></div></button>
+      <button aria-label="Open photo 2"><div class="ph" data-ph="assets/gallery2.png"><img src="assets/gallery2.png" alt="Project photo 2" onerror="this.remove()"></div></button>
+      <button aria-label="Open photo 3"><div class="ph" data-ph="assets/gallery3.png"><img src="assets/gallery3.png" alt="Project photo 3" onerror="this.remove()"></div></button>
+      <button aria-label="Open photo 4"><div class="ph" data-ph="assets/gallery4.png"><img src="assets/gallery4.png" alt="Project photo 4" onerror="this.remove()"></div></button>
+    </div>
+  </div>
+</section>
+
+<section id="video" class="vid">
+  <div class="wrap two">
+    <div class="ph rv" id="player" data-video-id="" data-ph="Add your YouTube video ID in data-video-id" tabindex="0" role="button" aria-label="Play video"><span class="play">▶</span></div>
+    <div class="card rv">
+      <span class="label">06 · Video demonstration</span>
+      <h3>See the idea in action</h3>
+      <p class="sub" style="margin:8px 0 0">Watch how affordable technology can improve a lesson, from the first problem to the final result.</p>
+      <ol>
+        <li>Introducing the problem</li><li>Choosing affordable tools</li><li>Setting up the solution</li><li>Trying it with learners</li><li>Measuring what changed</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="wrap">
+    <span class="label">07 · Educational impact</span>
+    <h2 class="rv">Small cost, big difference.</h2>
+    <p class="sub">Four ways affordable technology can lift the quality of education.</p>
+    <div class="impact">
+      <div class="card rv"><h3>Access</h3><p>Reach students who have no device or connection at home.</p></div>
+      <div class="card rv"><h3>Afford</h3><p>Choose free, open and reused tools before buying new.</p></div>
+      <div class="card rv"><h3>Engage</h3><p>Make lessons interactive, visual and easier to remember.</p></div>
+      <div class="card rv"><h3>Include</h3><p>Support different languages, abilities and learning speeds.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="concl">
+  <div class="wrap rv">
+    <span class="label">08 · Conclusion &amp; reflection</span>
+    <blockquote>“Good education does not need expensive technology. It needs the right technology, used well.”</blockquote>
+    <p>The team briefly reflects on the research, the school visit, practical challenges, the final result and what they would improve next time.</p>
+  </div>
+</section>
+
+<footer id="sources">
+  <div class="wrap">
+    <span class="label" style="color:var(--honey)">09 · Sources &amp; references</span>
+    <h2>Document your evidence.</h2>
+    <p>List research sources, the visited school or organisation, interview or field notes, image credits where required, and any external data you used. Do not present estimated impact as measured fact.</p>
+    <div class="end"><span><b>Education Within Reach</b> · Student project · SDG 4</span><span>Made with curiosity</span></div>
+  </div>
+</footer>
+
+<div id="lb" role="dialog" aria-label="Enlarged photo"><b aria-hidden="true">×</b><img alt=""></div>
+
+<script>
+// scroll progress bar
+const bar=document.getElementById('bar');
+addEventListener('scroll',()=>{bar.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%'},{passive:true});
+
+// gentle reveal on scroll (cards get a small stagger)
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%5)*70+'ms';io.observe(el)});
+
+// lightbox
+const lb=document.getElementById('lb'),lbImg=lb.querySelector('img');
+document.querySelectorAll('.gal button').forEach(b=>b.addEventListener('click',()=>{
+  const img=b.querySelector('img'); if(!img) return;
+  lbImg.src=img.src; lbImg.alt=img.alt; lb.classList.add('on');
+}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+// video: loads the YouTube player only when clicked
+const pl=document.getElementById('player');
+function playVideo(){
+  const id=pl.dataset.videoId.trim(); if(!id||pl.querySelector('iframe')) return;
+  pl.insertAdjacentHTML('beforeend','<iframe src="https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1" title="Project video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>');
+}
+pl.addEventListener('click',playVideo);
+pl.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();playVideo()}});
+</script>
+</body>
+</html>
