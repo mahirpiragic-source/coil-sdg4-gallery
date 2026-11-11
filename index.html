@@ -88,12 +88,12 @@ section:nth-of-type(odd){background:var(--beige-2)}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 
-.team{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.team .card{padding:12px}
-.team .ph{aspect-ratio:1;margin-bottom:12px}
-.team h3{font-size:1.05rem}.team em{display:block;font-style:normal;font-weight:700;font-size:.8rem;color:var(--honey-deep);margin:2px 0 6px}
-.team p{font-size:.82rem;color:var(--ink-soft);line-height:1.45}
-.team .card:nth-child(even){margin-top:22px}
+.team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:850px}
+.team .card{padding:18px;display:flex;flex-direction:column;gap:16px}
+.team .team-info{order:1}
+.team .ph{order:2;aspect-ratio:16/10;width:100%;margin:0}
+.team h3{font-size:1.15rem}.team em{display:block;font-style:normal;font-weight:700;font-size:.85rem;color:var(--honey-deep);margin:2px 0 6px}
+.team p{font-size:.9rem;color:var(--ink-soft);line-height:1.5}
 
 .q{font:700 1.35rem var(--head);line-height:1.25}
 .q small{display:block;font:700 .72rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--honey-deep);margin:14px 0 4px}
@@ -117,6 +117,8 @@ section:nth-of-type(odd){background:var(--beige-2)}
 .gal button:hover{transform:scale(1.025) rotate(-.6deg);border-radius:26px}
 .gal .ph{height:100%;border-radius:0}
 
+.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
+.video-card h3{margin:0 0 12px}
 .vid .ph{aspect-ratio:16/9;border-radius:16px;border:5px solid var(--white);box-shadow:10px 10px 0 var(--sky-deep);cursor:pointer}
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
 .play{position:absolute;z-index:2;width:74px;height:74px;border-radius:50%;background:var(--honey);display:grid;place-items:center;font-size:1.6rem;color:var(--ink);transition:transform .3s;animation:pulse 2s infinite}
@@ -164,6 +166,8 @@ footer b{color:var(--honey)}
   .hero .wrap,.two{grid-template-columns:1fr}.hero{padding:56px 0 80px}
   .team{grid-template-columns:repeat(2,1fr)}.team .card:nth-child(even){margin-top:0}
   .steps,.impact{grid-template-columns:1fr}
+  .video-grid{grid-template-columns:1fr}
+  .team{grid-template-columns:1fr;max-width:520px}
   .gal{grid-template-columns:1fr 1fr;grid-template-rows:auto}.gal button:nth-child(1){grid-row:auto}.gal button{height:200px}
   nav .wrap{flex-direction:column;gap:6px}.badge{left:-6px;bottom:-26px;width:92px;height:92px}
 }
@@ -212,14 +216,11 @@ footer b{color:var(--honey)}
 <section id="team">
   <div class="wrap">
     <span class="label">01 · Meet the team</span>
-    <h2 class="rv">Five students. One shared project.</h2>
-    <p class="sub">Each student has a primary responsibility, but all members take part in the research, the school visit, the practical work and the final presentation.</p>
+    <h2 class="rv">Two students. One shared project.</h2>
+    <p class="sub">Meet the two students working together on the research, school visit, practical work and final presentation. Add each student's details above their photo.</p>
     <div class="team">
-      <div class="card rv"><div class="ph" data-ph="assets/Luka.png"><img src="assets/Luka.png" alt="Luka" onerror="this.remove()"></div><h3>Luka</h3><em>Research Lead</em><p>Researches SDG 4, learning gaps and low-cost education technology.</p></div>
-      <div class="card rv"><div class="ph" data-ph="assets/Matic.png"><img src="assets/Matic.png" alt="Matic" onerror="this.remove()"></div><h3>Matic</h3><em>School Visit</em><p>Prepares the visit, interview questions and field notes.</p></div>
-      <div class="card rv"><div class="ph" data-ph="assets/Zan.png"><img src="assets/Zan.png" alt="Žan" onerror="this.remove()"></div><h3>Žan</h3><em>Tech &amp; Setup</em><p>Tests devices, software and classroom setups on a small budget.</p></div>
-      <div class="card rv"><div class="ph" data-ph="assets/Nejc.png"><img src="assets/Nejc.png" alt="Nejc" onerror="this.remove()"></div><h3>Nejc</h3><em>Photography &amp; Web</em><p>Documents the project visually and builds the website.</p></div>
-      <div class="card rv"><div class="ph" data-ph="assets/Tilen.png"><img src="assets/Tilen.png" alt="Tilen" onerror="this.remove()"></div><h3>Tilen</h3><em>Video Production</em><p>Records and edits the final video demonstration.</p></div>
+      <div class="card rv"><div class="team-info"><h3>Luka</h3><em>Research Lead</em><p>Researches SDG 4, learning gaps and low-cost education technology.</p></div><div class="ph" data-ph="assets/Luka.png"><img src="assets/Luka.png" alt="Luka" onerror="this.remove()"></div></div>
+      <div class="card rv"><div class="team-info"><h3>Matic</h3><em>School Visit &amp; Technology</em><p>Prepares the school visit, tests affordable tools and helps create the final presentation.</p></div><div class="ph" data-ph="assets/Matic.png"><img src="assets/Matic.png" alt="Matic" onerror="this.remove()"></div></div>
     </div>
   </div>
 </section>
@@ -286,15 +287,23 @@ footer b{color:var(--honey)}
 </section>
 
 <section id="video" class="vid">
-  <div class="wrap two">
-    <div class="ph rv" id="player" data-video-id="" data-ph="Add your YouTube video ID in data-video-id" tabindex="0" role="button" aria-label="Play video"><span class="play">▶</span></div>
-    <div class="card rv">
-      <span class="label">06 · Video demonstration</span>
-      <h3>See the idea in action</h3>
-      <p class="sub" style="margin:8px 0 0">Watch how affordable technology can improve a lesson, from the first problem to the final result.</p>
-      <ol>
-        <li>Introducing the problem</li><li>Choosing affordable tools</li><li>Setting up the solution</li><li>Trying it with learners</li><li>Measuring what changed</li>
-      </ol>
+  <div class="wrap">
+    <span class="label">06 · Video demonstrations</span>
+    <h2 class="rv">See the idea in action.</h2>
+    <p class="sub">Add a YouTube video ID to each player below. The two videos will appear next to each other on larger screens and one below the other on phones.</p>
+    <div class="video-grid">
+      <div class="video-card rv">
+        <h3>Video 1</h3>
+        <div class="ph video-player" data-video-id="" data-ph="Add the first YouTube video ID" tabindex="0" role="button" aria-label="Play first video"><span class="play">▶</span></div>
+      </div>
+      <div class="video-card rv">
+        <h3>Video 2</h3>
+        <div class="ph video-player" data-video-id="" data-ph="Add the second YouTube video ID" tabindex="0" role="button" aria-label="Play second video"><span class="play">▶</span></div>
+      </div>
+    </div>
+    <div class="card rv" style="margin-top:34px">
+      <h3>What the videos show</h3>
+      <p class="sub" style="margin:8px 0 0">Show how affordable technology can improve a lesson, from introducing the problem and choosing tools to testing the solution with learners.</p>
     </div>
   </div>
 </section>
@@ -350,14 +359,16 @@ document.querySelectorAll('.gal button').forEach(b=>b.addEventListener('click',(
 lb.addEventListener('click',()=>lb.classList.remove('on'));
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
 
-// video: loads the YouTube player only when clicked
-const pl=document.getElementById('player');
-function playVideo(){
-  const id=pl.dataset.videoId.trim(); if(!id||pl.querySelector('iframe')) return;
-  pl.insertAdjacentHTML('beforeend','<iframe src="https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1" title="Project video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>');
-}
-pl.addEventListener('click',playVideo);
-pl.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();playVideo()}});
+// video players: each video loads only when its own player is clicked
+document.querySelectorAll('.video-player').forEach((pl,index)=>{
+  function playVideo(){
+    const id=pl.dataset.videoId.trim();
+    if(!id||pl.querySelector('iframe')) return;
+    pl.insertAdjacentHTML('beforeend','<iframe src="https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1" title="Project video '+(index+1)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>');
+  }
+  pl.addEventListener('click',playVideo);
+  pl.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();playVideo()}});
+});
 </script>
 </body>
 </html>
