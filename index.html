@@ -118,6 +118,33 @@ section:nth-of-type(odd){background:var(--beige-2)}
 .gal button:hover{transform:scale(1.025) rotate(-.6deg);border-radius:26px}
 .gal .ph{height:100%;border-radius:0}
 
+
+/* SDG 4 quiz */
+.quiz-shell{max-width:850px;background:var(--white);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,36px);box-shadow:0 8px 0 var(--line)}
+.quiz-top{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px;color:var(--ink-soft);font-weight:700;font-size:.9rem}
+.quiz-progress{height:9px;border-radius:99px;background:var(--sky-soft);overflow:hidden;margin-bottom:26px}
+.quiz-progress span{display:block;height:100%;width:0;background:var(--honey);transition:width .3s}
+.quiz-question{font:700 clamp(1.25rem,2.5vw,1.65rem) var(--head);line-height:1.25;margin-bottom:20px}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quiz-option{border:2px solid var(--line);background:var(--beige);color:var(--ink);border-radius:12px;padding:14px 16px;text-align:left;font:500 .98rem var(--body);cursor:pointer;transition:border .2s,background .2s,transform .2s}
+.quiz-option:hover{border-color:var(--sky-deep);transform:translateY(-2px)}
+.quiz-option.selected{border-color:var(--sky-deep);background:var(--sky-soft)}
+.quiz-option:disabled{cursor:default;opacity:1}
+.quiz-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px}
+.quiz-btn{border:0;border-radius:99px;padding:12px 22px;background:var(--ink);color:var(--white);font:700 .95rem var(--body);cursor:pointer}
+.quiz-btn:disabled{opacity:.4;cursor:not-allowed}
+.quiz-btn.secondary{background:var(--sky-soft);color:var(--ink)}
+.quiz-result{margin-top:24px}
+.quiz-score{font:800 clamp(2rem,5vw,3.2rem) var(--head);margin:8px 0 18px}
+.quiz-review{display:grid;gap:12px;margin-top:22px}
+.quiz-review-item{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--beige)}
+.quiz-review-item.correct{border-left:6px solid #27834b}
+.quiz-review-item.wrong{border-left:6px solid #c34b43}
+.quiz-review-item h4{font:700 1rem var(--head);margin-bottom:7px}
+.quiz-review-item p{font-size:.92rem;color:var(--ink-soft);margin-top:5px}
+.quiz-status{font-weight:700}
+@media(max-width:600px){.quiz-options{grid-template-columns:1fr}.quiz-actions{align-items:stretch}.quiz-btn{padding:12px 16px}}
+
 .video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
 .video-card h3{margin:0 0 12px}
 .vid .ph{aspect-ratio:16/9;border-radius:16px;border:5px solid var(--white);box-shadow:10px 10px 0 var(--sky-deep);cursor:pointer}
@@ -186,7 +213,7 @@ footer b{color:var(--honey)}
   <a class="logo" href="#top"><i></i>Education Within Reach</a>
   <ul>
     <li><a href="#team">Team</a></li><li><a href="#research">Research</a></li><li><a href="#visit">School Visit</a></li>
-    <li><a href="#work">Practical Work</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#video">Video</a></li>
+    <li><a href="#work">Practical Work</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#video">Video</a></li><li><a href="#quiz">Quiz</a></li>
   </ul>
 </div></nav>
 
@@ -309,6 +336,24 @@ footer b{color:var(--honey)}
   </div>
 </section>
 
+<section id="quiz">
+  <div class="wrap">
+    <span class="label">07 · Test your knowledge</span>
+    <h2 class="rv">SDG 4 Knowledge Quiz</h2>
+    <p class="sub">Answer 10 questions about Quality Education. Choose one answer from the four options for each question. At the end, you will see your score and a review of every answer.</p>
+    <div class="quiz-shell rv" id="sdg4-quiz">
+      <div class="quiz-top"><span id="quiz-count">Question 1 of 10</span><span id="quiz-progress-text">0% completed</span></div>
+      <div class="quiz-progress" aria-hidden="true"><span id="quiz-progress-bar"></span></div>
+      <div id="quiz-content" aria-live="polite">
+        <div class="quiz-question">Ready to test your SDG 4 knowledge?</div>
+        <p class="sub" style="margin:0">Click the button to start the quiz.</p>
+      </div>
+      <div class="quiz-actions" id="quiz-actions"><span></span><button class="quiz-btn" id="quiz-start" type="button">Start quiz</button></div>
+      <div class="quiz-result" id="quiz-result" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
 <section id="impact">
   <div class="wrap">
     <span class="label">07 · Educational impact</span>
@@ -359,6 +404,61 @@ document.querySelectorAll('.gal button').forEach(b=>b.addEventListener('click',(
 }));
 lb.addEventListener('click',()=>lb.classList.remove('on'));
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+// SDG 4 quiz: 10 English questions, one correct answer each
+const quizQuestions=[
+ {q:"What is the main goal of Sustainable Development Goal 4 (SDG 4)?",a:["Quality education for all","Clean water for all","Affordable clean energy","Protecting life below water"],c:0,e:"SDG 4 aims to ensure inclusive and equitable quality education and promote lifelong learning opportunities for all."},
+ {q:"Which organisation adopted the 17 Sustainable Development Goals in 2015?",a:["The European Union","The United Nations","The World Trade Organization","The International Olympic Committee"],c:1,e:"The United Nations adopted the 2030 Agenda for Sustainable Development, which includes the 17 SDGs, in 2015."},
+ {q:"What does inclusive education mean?",a:["Only the best students can attend","All students learn together and receive support for their needs","Every student must use the same learning method","Students with disabilities study separately"],c:1,e:"Inclusive education works to remove barriers so learners with different needs and backgrounds can participate."},
+ {q:"Which example can help students learn when internet access is unavailable?",a:["Online-only video lessons","A faster social media app","Downloaded lessons and offline digital resources","A website that requires constant internet access"],c:2,e:"Downloaded lessons and offline resources allow students to study without a continuous internet connection."},
+ {q:"Why is education important for sustainable development?",a:["It helps people gain knowledge and skills to improve their lives and communities","It removes the need for healthcare","It guarantees that everyone has the same job","It uses more natural resources"],c:0,e:"Education builds knowledge and skills that help people make informed decisions and contribute to society."},
+ {q:"What is one way schools can make education more accessible?",a:["Using only expensive devices","Removing learning support","Providing accessible materials and assistive technology","Limiting lessons to one language"],c:2,e:"Accessible materials and assistive technology can help learners with different abilities and needs."},
+ {q:"What does lifelong learning mean?",a:["Learning only during childhood","Continuing to learn throughout life","Studying one subject forever","Learning only at university"],c:1,e:"Lifelong learning means people can continue gaining knowledge and skills at every stage of life."},
+ {q:"Which is an example of open educational resources?",a:["A paid textbook that cannot be shared","A private lesson available to one person","A learning resource with an open licence that allows reuse","A device that only works in one school"],c:2,e:"Open educational resources are teaching and learning materials that can be accessed and reused under an open licence."},
+ {q:"Which challenge can prevent children from receiving a quality education?",a:["A safe classroom","Trained teachers","Accessible learning materials","Poverty and lack of school resources"],c:3,e:"Poverty and limited school resources can make it difficult for children to attend school and learn effectively."},
+ {q:"How can technology support SDG 4 when it is used well?",a:["By replacing every teacher","By supporting learning with useful and accessible tools","By making all education expensive","By preventing students from working together"],c:1,e:"Technology can support teachers and learners through accessible information, communication and learning tools; it should be used to improve education, not simply replace teachers."}
+];
+const quizContent=document.getElementById('quiz-content');
+const quizActions=document.getElementById('quiz-actions');
+const quizCount=document.getElementById('quiz-count');
+const quizProgressText=document.getElementById('quiz-progress-text');
+const quizProgressBar=document.getElementById('quiz-progress-bar');
+const quizResult=document.getElementById('quiz-result');
+let quizIndex=0,quizAnswers=[];
+function renderQuizQuestion(){
+ const item=quizQuestions[quizIndex];
+ quizCount.textContent='Question '+(quizIndex+1)+' of '+quizQuestions.length;
+ const done=Math.round((quizIndex/quizQuestions.length)*100);
+ quizProgressText.textContent=done+'% completed';
+ quizProgressBar.style.width=done+'%';
+ quizContent.innerHTML='<div class="quiz-question">'+(quizIndex+1)+'. '+item.q+'</div><div class="quiz-options">'+item.a.map((answer,i)=>'<button type="button" class="quiz-option" data-answer="'+i+'" aria-pressed="false">'+String.fromCharCode(65+i)+'. '+answer+'</button>').join('')+'</div>';
+ quizContent.querySelectorAll('.quiz-option').forEach(button=>button.addEventListener('click',()=>{
+   quizAnswers[quizIndex]=Number(button.dataset.answer);
+   quizContent.querySelectorAll('.quiz-option').forEach(option=>{option.classList.toggle('selected',option===button);option.setAttribute('aria-pressed',option===button?'true':'false')});
+   quizActions.querySelector('#quiz-next').disabled=false;
+ }));
+ quizActions.innerHTML='<button type="button" class="quiz-btn secondary" id="quiz-back" '+(quizIndex===0?'disabled':'')+'>Back</button><button type="button" class="quiz-btn" id="quiz-next" '+(quizAnswers[quizIndex]===undefined?'disabled':'')+'>'+(quizIndex===quizQuestions.length-1?'Finish quiz':'Next question')+'</button>';
+ if(quizAnswers[quizIndex]!==undefined){const selected=quizContent.querySelector('[data-answer="'+quizAnswers[quizIndex]+'"]');if(selected){selected.classList.add('selected');selected.setAttribute('aria-pressed','true')}}
+ document.getElementById('quiz-back').addEventListener('click',()=>{if(quizIndex>0){quizIndex--;renderQuizQuestion()}});
+ document.getElementById('quiz-next').addEventListener('click',()=>{if(quizAnswers[quizIndex]===undefined)return;if(quizIndex<quizQuestions.length-1){quizIndex++;renderQuizQuestion()}else showQuizResults()});
+}
+function startQuiz(){quizIndex=0;quizAnswers=[];quizResult.innerHTML='';renderQuizQuestion()}
+function showQuizResults(){
+ const score=quizQuestions.reduce((total,item,i)=>total+(quizAnswers[i]===item.c?1:0),0);
+ quizCount.textContent='Quiz completed';
+ quizProgressText.textContent='100% completed';
+ quizProgressBar.style.width='100%';
+ quizActions.innerHTML='<button type="button" class="quiz-btn" id="quiz-restart">Try again</button>';
+ quizContent.innerHTML='<h3>Your results</h3><div class="quiz-score">'+score+' / '+quizQuestions.length+'</div><p class="sub" style="margin:0">'+(score===10?'Excellent work! You answered every question correctly.':score>=7?'Great job! You have a good understanding of SDG 4.':score>=5?'Good effort! Review the answers below to learn more.':'Keep practising! Read the explanations and try again.')+'</p>';
+ quizResult.innerHTML='<h3 style="margin:22px 0 12px">Answer review</h3><div class="quiz-review">'+quizQuestions.map((item,i)=>{
+  const right=quizAnswers[i]===item.c;
+  const chosen=quizAnswers[i]===undefined?'No answer':String.fromCharCode(65+quizAnswers[i])+'. '+item.a[quizAnswers[i]];
+  const correct=String.fromCharCode(65+item.c)+'. '+item.a[item.c];
+  return '<article class="quiz-review-item '+(right?'correct':'wrong')+'"><h4>Question '+(i+1)+': '+(right?'✓ Correct':'✗ Incorrect')+'</h4><p><strong>'+item.q+'</strong></p><p>Your answer: '+chosen+'</p><p>Correct answer: '+correct+'</p><p>'+item.e+'</p></article>';
+ }).join('')+'</div>';
+ document.getElementById('quiz-restart').addEventListener('click',startQuiz);
+}
+document.getElementById('quiz-start').addEventListener('click',startQuiz);
 
 // video players: each video loads only when its own player is clicked
 document.querySelectorAll('.video-player').forEach((pl,index)=>{
