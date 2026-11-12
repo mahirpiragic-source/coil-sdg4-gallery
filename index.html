@@ -93,6 +93,10 @@ section:nth-of-type(odd){background:var(--beige-2)}
 .team .card{padding:18px;display:flex;flex-direction:column;gap:16px}
 .team .team-info{order:1}
 .team .ph{order:2;aspect-ratio:16/10;width:100%;margin:0}
+.team .team-video-title{order:3;font-size:1rem;margin:2px 0 -8px}
+.team .team-video{order:4;aspect-ratio:16/9;width:100%;margin:0;border-radius:14px;border:4px solid var(--white);box-shadow:6px 6px 0 var(--sky-deep);cursor:pointer}
+.team .team-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
+.team .team-video:hover .play{transform:scale(1.15)}
 .team h3{font-size:1.15rem}.team em{display:block;font-style:normal;font-weight:700;font-size:.85rem;color:var(--honey-deep);margin:2px 0 6px}
 .team p{font-size:.9rem;color:var(--ink-soft);line-height:1.5}
 
@@ -213,7 +217,7 @@ footer b{color:var(--honey)}
   <a class="logo" href="#top"><i></i>Education Within Reach</a>
   <ul>
     <li><a href="#team">Team</a></li><li><a href="#research">Research</a></li><li><a href="#visit">School Visit</a></li>
-    <li><a href="#work">Practical Work</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#video">Video</a></li><li><a href="#quiz">Quiz</a></li>
+    <li><a href="#work">Practical Work</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#quiz">Quiz</a></li>
   </ul>
 </div></nav>
 
@@ -247,8 +251,18 @@ footer b{color:var(--honey)}
     <h2 class="rv">Two students. One shared project.</h2>
     <p class="sub">Meet the two students working together on the research, school visit, practical work and final presentation. Add each student's details above their photo.</p>
     <div class="team">
-      <div class="card rv"><div class="team-info"><h3>Luka Janež</h3><em>Research Lead</em><p>Researches SDG 4, learning gaps and low-cost education technology.</p></div><div class="ph" data-ph="Luka.png"><img src="coli-sdg4-gallery/Luka.png" alt="Luka" onerror="this.remove()"></div></div>
-      <div class="card rv"><div class="team-info"><h3>Mahir Piragic</h3><em>School Visit &amp; Technology</em><p>Prepares the school visit, tests affordable tools and helps create the final presentation.</p></div><div class="ph" data-ph="mahar.jpg"><img src="coli-sdg4-gallery/mahar.jpg" alt="Mahir" onerror="this.remove()"></div></div>
+      <div class="card rv">
+        <div class="team-info"><h3>Luka Janež</h3><em>Research Lead</em><p>Researches SDG 4, learning gaps and low-cost education technology.</p></div>
+        <div class="ph" data-ph="Luka.png"><img src="coli-sdg4-gallery/Luka.png" alt="Luka" onerror="this.remove()"></div>
+        <h3 class="team-video-title">Luka's video</h3>
+        <div class="ph video-player team-video" data-video-id="" data-ph="Add Luka's YouTube video ID" tabindex="0" role="button" aria-label="Play Luka's video"><span class="play">▶</span></div>
+      </div>
+      <div class="card rv">
+        <div class="team-info"><h3>Mahir Piragic</h3><em>School Visit &amp; Technology</em><p>Prepares the school visit, tests affordable tools and helps create the final presentation.</p></div>
+        <div class="ph" data-ph="mahar.jpg"><img src="coli-sdg4-gallery/mahar.jpg" alt="Mahir" onerror="this.remove()"></div>
+        <h3 class="team-video-title">Mahir's video</h3>
+        <div class="ph video-player team-video" data-video-id="" data-ph="Add Mahir's YouTube video ID" tabindex="0" role="button" aria-label="Play Mahir's video"><span class="play">▶</span></div>
+      </div>
     </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
   </div>                                                                                                                                                                                                                                                                                                              
 </section>
@@ -316,27 +330,7 @@ footer b{color:var(--honey)}
   </div>
 </section>
 
-<section id="video" class="vid">
-  <div class="wrap">
-    <span class="label">06 · Video demonstrations</span>
-    <h2 class="rv">See the idea in action.</h2>
-    <p class="sub">Add a YouTube video ID to each player below. The two videos will appear next to each other on larger screens and one below the other on phones.</p>
-    <div class="video-grid">
-      <div class="video-card rv">
-        <h3>Video 1</h3>
-        <div class="ph video-player" data-video-id="" data-ph="Add the first YouTube video ID" tabindex="0" role="button" aria-label="Play first video"><span class="play">▶</span></div>
-      </div>
-      <div class="video-card rv">
-        <h3>Video 2</h3>
-        <div class="ph video-player" data-video-id="" data-ph="Add the second YouTube video ID" tabindex="0" role="button" aria-label="Play second video"><span class="play">▶</span></div>
-      </div>
-    </div>
-    <div class="card rv" style="margin-top:34px">
-      <h3>What the videos show</h3>
-      <p class="sub" style="margin:8px 0 0">Show how affordable technology can improve a lesson, from introducing the problem and choosing tools to testing the solution with learners.</p>
-    </div>
-  </div>
-</section>
+
 
 <section id="quiz">
   <div class="wrap">
