@@ -113,7 +113,7 @@ section:nth-of-type(odd){background:var(--beige-2)}
 .visit h3{font-size:1.5rem;margin-bottom:10px}
 
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
-.steps .card{padding:0;overflow:hidden}
+.steps .card{padding:0;overflow:hidden;cursor:pointer;position:relative;transition:transform .25s ease,box-shadow .25s ease}.steps .card:hover{transform:scale(1.025);box-shadow:0 14px 0 var(--sky)}.steps .card.is-expanded{transform:scale(1.06);z-index:5;box-shadow:0 16px 0 var(--honey)}
 .steps .ph{aspect-ratio:4/3;border-radius:0}
 .steps .body{padding:20px 22px 24px}
 .steps .label{counter-increment:s}.steps .label::before{content:"Step " counter(s) " · "}
@@ -398,6 +398,7 @@ document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%5)
 
 // lightbox
 const lb=document.getElementById('lb'),lbImg=lb.querySelector('img');
+document.querySelectorAll('.steps .card').forEach(card=>{card.setAttribute('tabindex','0');card.setAttribute('role','button');card.setAttribute('aria-pressed','false');const toggle=()=>{card.classList.toggle('is-expanded');card.setAttribute('aria-pressed',card.classList.contains('is-expanded')?'true':'false')};card.addEventListener('click',toggle);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}})});
 document.querySelectorAll('.gal button').forEach(b=>b.addEventListener('click',()=>{
   const img=b.querySelector('img'); if(!img) return;
   lbImg.src=img.src; lbImg.alt=img.alt; lb.classList.add('on');
