@@ -89,12 +89,14 @@ section:nth-of-type(odd){background:var(--beige-2)}
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 
-.team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:850px}
-.team .card{padding:18px;display:flex;flex-direction:column;gap:16px}
+.team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;max-width:1000px}
+.team-member{display:flex;flex-direction:column;gap:22px;min-width:0}
+.team .card{padding:20px;display:flex;flex-direction:column;gap:16px}
 .team .team-info{order:1}
-.team .ph{order:2;aspect-ratio:16/10;width:100%;margin:0}
-.team .team-video-title{order:3;font-size:1rem;margin:2px 0 -8px}
-.team .team-video{order:4;aspect-ratio:16/9;width:100%;margin:0;border-radius:14px;border:4px solid var(--white);box-shadow:6px 6px 0 var(--sky-deep);cursor:pointer}
+.team .card .ph{order:2;aspect-ratio:16/10;width:100%;margin:0}
+.team-video-block{padding:0 4px}
+.team .team-video-title{font-size:1.12rem;margin:0 0 12px}
+.team .team-video{aspect-ratio:16/9;width:100%;margin:0;border-radius:14px;border:5px solid var(--white);box-shadow:8px 8px 0 var(--sky-deep);cursor:pointer}
 .team .team-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
 .team .team-video:hover .play{transform:scale(1.15)}
 .team h3{font-size:1.15rem}.team em{display:block;font-style:normal;font-weight:700;font-size:.85rem;color:var(--honey-deep);margin:2px 0 6px}
@@ -251,17 +253,25 @@ footer b{color:var(--honey)}
     <h2 class="rv">Two students. One shared project.</h2>
     <p class="sub">Meet the two students working together on the research, school visit, practical work and final presentation. Add each student's details above their photo.</p>
     <div class="team">
-      <div class="card rv">
-        <div class="team-info"><h3>Luka Janež</h3><em>Research Lead</em><p>Researches SDG 4, learning gaps and low-cost education technology.</p></div>
-        <div class="ph" data-ph="Luka.png"><img src="coli-sdg4-gallery/Luka.png" alt="Luka" onerror="this.remove()"></div>
-        <h3 class="team-video-title">Luka's video</h3>
-        <div class="ph video-player team-video" data-video-id="" data-ph="Add Luka's YouTube video ID" tabindex="0" role="button" aria-label="Play Luka's video"><span class="play">▶</span></div>
+      <div class="team-member">
+        <div class="card rv">
+          <div class="team-info"><h3>Luka Janež</h3><em>Research Lead</em><p>Researches SDG 4, learning gaps and low-cost education technology.</p></div>
+          <div class="ph" data-ph="Luka.png"><img src="coli-sdg4-gallery/Luka.png" alt="Luka" onerror="this.remove()"></div>
+        </div>
+        <div class="team-video-block">
+          <h3 class="team-video-title">Luka's video</h3>
+          <div class="ph video-player team-video" data-video-id="" data-ph="Add Luka's YouTube video ID" tabindex="0" role="button" aria-label="Play Luka's video"><span class="play">▶</span></div>
+        </div>
       </div>
-      <div class="card rv">
-        <div class="team-info"><h3>Mahir Piragic</h3><em>School Visit &amp; Technology</em><p>Prepares the school visit, tests affordable tools and helps create the final presentation.</p></div>
-        <div class="ph" data-ph="mahar.jpg"><img src="coli-sdg4-gallery/mahar.jpg" alt="Mahir" onerror="this.remove()"></div>
-        <h3 class="team-video-title">Mahir's video</h3>
-        <div class="ph video-player team-video" data-video-id="" data-ph="Add Mahir's YouTube video ID" tabindex="0" role="button" aria-label="Play Mahir's video"><span class="play">▶</span></div>
+      <div class="team-member">
+        <div class="card rv">
+          <div class="team-info"><h3>Mahir Piragic</h3><em>School Visit &amp; Technology</em><p>Prepares the school visit, tests affordable tools and helps create the final presentation.</p></div>
+          <div class="ph" data-ph="mahar.jpg"><img src="coli-sdg4-gallery/mahar.jpg" alt="Mahir" onerror="this.remove()"></div>
+        </div>
+        <div class="team-video-block">
+          <h3 class="team-video-title">Mahir's video</h3>
+          <div class="ph video-player team-video" data-video-id="" data-ph="Add Mahir's YouTube video ID" tabindex="0" role="button" aria-label="Play Mahir's video"><span class="play">▶</span></div>
+        </div>
       </div>
     </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
   </div>                                                                                                                                                                                                                                                                                                              
