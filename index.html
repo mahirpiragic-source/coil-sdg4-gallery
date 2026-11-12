@@ -113,7 +113,7 @@ section:nth-of-type(odd){background:var(--beige-2)}
 .visit h3{font-size:1.5rem;margin-bottom:10px}
 
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
-.steps .card{padding:0;overflow:hidden;cursor:pointer;position:relative;transition:transform .25s ease,box-shadow .25s ease}.steps .card:hover{transform:scale(1.025);box-shadow:0 14px 0 var(--sky)}.steps .card.is-expanded{transform:scale(1.06);z-index:5;box-shadow:0 16px 0 var(--honey)}
+.steps .card{padding:0;overflow:hidden;cursor:pointer;position:relative;transition:transform .25s ease,box-shadow .25s ease}.steps .card:hover{transform:scale(1.025);box-shadow:0 14px 0 var(--sky)}
 .steps .ph{aspect-ratio:4/3;border-radius:0}
 .steps .body{padding:20px 22px 24px}
 .steps .label{counter-increment:s}.steps .label::before{content:"Step " counter(s) " · "}
@@ -182,6 +182,16 @@ footer b{color:var(--honey)}
 #lb.on{display:grid;animation:fade .3s}
 #lb img{max-height:88vh;border-radius:14px;border:6px solid var(--white)}
 #lb b{position:absolute;top:18px;right:26px;font:400 2.6rem var(--head);color:var(--white)}
+#step-modal{position:fixed;inset:0;z-index:120;background:rgba(12,35,52,.94);display:none;align-items:center;justify-content:center;padding:28px;overflow-y:auto}
+#step-modal.on{display:flex;animation:fade .25s}
+#step-modal .step-modal-card{position:relative;width:min(100%,1000px);max-height:92vh;overflow:auto;background:var(--white);border-radius:22px;box-shadow:0 24px 90px rgba(0,0,0,.35);cursor:default;transform:none!important}
+#step-modal .step-modal-card .ph{height:min(58vh,560px);aspect-ratio:auto;border-radius:0;background:var(--sky-soft)}
+#step-modal .step-modal-card .ph img{width:100%;height:100%;object-fit:contain;display:block}
+#step-modal .step-modal-card .body{padding:clamp(24px,5vw,48px)}
+#step-modal .step-modal-card h3{font-size:clamp(1.6rem,4vw,2.5rem);margin:12px 0}
+#step-modal .step-modal-card p{font-size:clamp(1rem,2vw,1.2rem);line-height:1.7}
+#step-modal .step-modal-close{position:fixed;top:18px;right:24px;border:0;border-radius:50%;width:48px;height:48px;background:var(--white);color:var(--ink);font-size:2rem;line-height:1;cursor:pointer;z-index:2}
+@media(max-width:600px){#step-modal{padding:12px}#step-modal .step-modal-card{max-height:94vh}#step-modal .step-modal-card .ph{height:38vh}#step-modal .step-modal-close{top:10px;right:10px}}
 
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
 .rv.in{opacity:1;transform:none}
@@ -386,6 +396,7 @@ footer b{color:var(--honey)}
 
 
 <div id="lb" role="dialog" aria-label="Enlarged photo"><b aria-hidden="true">×</b><img alt=""></div>
+<div id="step-modal" role="dialog" aria-modal="true" aria-label="Expanded practical work step"><button class="step-modal-close" type="button" aria-label="Close">×</button><div class="step-modal-card"></div></div>
 
 <script>
 // scroll progress bar
@@ -398,13 +409,17 @@ document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%5)
 
 // lightbox
 const lb=document.getElementById('lb'),lbImg=lb.querySelector('img');
-document.querySelectorAll('.steps .card').forEach(card=>{card.setAttribute('tabindex','0');card.setAttribute('role','button');card.setAttribute('aria-pressed','false');const toggle=()=>{card.classList.toggle('is-expanded');card.setAttribute('aria-pressed',card.classList.contains('is-expanded')?'true':'false')};card.addEventListener('click',toggle);card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}})});
+const stepModal=document.getElementById('step-modal'),stepModalCard=stepModal.querySelector('.step-modal-card'),stepModalClose=stepModal.querySelector('.step-modal-close');
+const closeStepModal=()=>{stepModal.classList.remove('on');stepModalCard.innerHTML='';document.body.style.overflow=''};
+document.querySelectorAll('.steps .card').forEach(card=>{card.setAttribute('tabindex','0');card.setAttribute('role','button');card.setAttribute('aria-label','Open '+(card.querySelector('h3')?.textContent||'step')+' fullscreen');card.addEventListener('click',()=>{stepModalCard.innerHTML=card.innerHTML;stepModal.classList.add('on');document.body.style.overflow='hidden';stepModalClose.focus()});card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();card.click()}})});
+stepModalClose.addEventListener('click',closeStepModal);
+stepModal.addEventListener('click',e=>{if(e.target===stepModal)closeStepModal()});
 document.querySelectorAll('.gal button').forEach(b=>b.addEventListener('click',()=>{
   const img=b.querySelector('img'); if(!img) return;
   lbImg.src=img.src; lbImg.alt=img.alt; lb.classList.add('on');
 }));
 lb.addEventListener('click',()=>lb.classList.remove('on'));
-addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+addEventListener('keydown',e=>{if(e.key==='Escape'){lb.classList.remove('on');closeStepModal()}});
 
 // SDG 4 quiz: 10 English questions, one correct answer each
 const quizQuestions=[
